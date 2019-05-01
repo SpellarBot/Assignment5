@@ -1,15 +1,22 @@
 #include "Student.h"
 #include "RunProgram.h"
+#include "Faculty.h"
 #include <iostream>
 
+BST<Student> masterStudent;
+BST<Faculty> masterFaculty;
+Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
+Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
+Faculty f1(01, "Rene German", "Lecturer", "Computer Science");
+
 void RunProgram::createTrees(){
-  BST<Student> masterStudent;
-  Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
-  Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
-  masterStudent.insert(s1);
-  masterStudent.insert(s2);
-  if (masterStudent.contains(s2))
-    cout << s2.getID() << endl;
+  //BST<Student> masterStudent;
+  //Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
+//  Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
+  //masterStudent.insert(s1);
+//  masterStudent.insert(s2);
+  if (masterStudent.contains(s1))
+    cout << s1.getID() << endl;
 }
 
 void RunProgram::printMenu(){
@@ -31,6 +38,8 @@ void RunProgram::printMenu(){
 }
 
 void RunProgram::menuSelection(int menuSel){
+  Student newStudent;
+  Faculty newFac;
   switch(menuSel){
     case 1: //print all students
     case 2: //print all faculty
@@ -47,10 +56,33 @@ void RunProgram::menuSelection(int menuSel){
       cout << "Enter the Faculty ID: " << endl;
       break;
     case 7: //add student
+      cout << "Enter Student Name: " << endl;
+      cin.ignore();
+      getline(cin,newStudent.name);
+      cout << "Enter Student Level: " << endl;
+      cin >> newStudent.level;
+      cout << "Enter Student Major: " << endl;
+      cin.ignore();
+      getline(cin,newStudent.major);
+      cout << "Enter Student GPA: " << endl;
+      cin >> newStudent.gpa;
+      masterStudent.insert(newStudent);
+      break;
     case 8: //delete student
       cout << "Enter the Student ID: " << endl;
       break;
     case 9: //add faculty
+      cout << "Enter Faculty Name: " << endl;
+      cin.ignore();
+      getline(cin,newFac.name);
+      cout << "Enter Faculty Level: " << endl;
+      cin.ignore();
+      getline(cin,newFac.level);
+      cout << "Enter Faculty Department: " << endl;
+      cin.ignore();
+      getline(cin,newFac.department);
+      masterFaculty.insert(newFac);
+      break;
     case 10: //delete faculty
       cout << "Enter the Faculty ID: " << endl;
       break;

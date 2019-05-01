@@ -22,7 +22,7 @@ public:
   int getID();
   void setID(int id);
 
-private:
+
   string major;
   double gpa;
   int advisorID;

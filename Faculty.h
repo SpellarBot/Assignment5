@@ -15,10 +15,14 @@ public:
   //some operator overload
   bool friend operator==(const Faculty &f1, const Faculty &f2);
   bool friend operator!= (const Faculty &f1, const Faculty &f2);
+  bool friend operator> (const Faculty &f1, const Faculty &f2);
+  bool friend operator>= (const Faculty &f1, const Faculty &f2);
+  bool friend operator< (const Faculty &f1, const Faculty &f2);
+  bool friend operator<= (const Faculty &f1, const Faculty &f2);
 
+  string department;
 
 private:
-  string department;
   DubLinkList<int>* adviseeIDList = new DubLinkList<int>();
 };
 #endif

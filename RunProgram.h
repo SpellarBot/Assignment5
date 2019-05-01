@@ -1,5 +1,6 @@
 #include "Student.h"
 #include "Faculty.h"
+#include "DoublyLinkedList.h"
 #ifndef RUNPROGRAM_H
 #define RUNPROGRAM_H
 

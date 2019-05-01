@@ -7,6 +7,9 @@ Faculty::Faculty(){
 
 Faculty::Faculty(int id, string name, string level, string department){
   typedef Person super;
+  this->id = id;
+  this->name = name;
+  this->level = level;
   this->department = department;
 }
 
@@ -16,10 +19,30 @@ Faculty::~Faculty(){
 
 bool operator== (const Faculty &f1, const Faculty &f2)
 {
-    return (f1.department == f2.department);
+    return (f1.id == f2.id);
 }
 
 bool operator!= (const Faculty &f1, const Faculty &f2)
 {
     return !(f1 == f2);
+}
+
+bool operator> (const Faculty &f1, const Faculty &f2)
+{
+    return f1.id > f2.id;
+}
+
+bool operator>= (const Faculty &f1, const Faculty &f2)
+{
+    return f1.id >= f2.id;
+}
+
+bool operator< (const Faculty &f1, const Faculty &f2)
+{
+    return f1.id < f2.id;
+}
+
+bool operator<= (const Faculty &f1, const Faculty &f2)
+{
+    return f1.id <= f2.id;
 }
