@@ -32,19 +32,37 @@ void RunProgram::printMenu(){
 
 void RunProgram::menuSelection(int menuSel){
   switch(menuSel){
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-    case 11:
-    case 12:
-    case 13:
+    case 1: //print all students
+    case 2: //print all faculty
+    case 3: //print a student's info
+      cout << "Enter the Student ID: " << endl;
+      break;
+    case 4: //print a faculty's info
+      cout << "Enter the Faculty ID: " << endl;
+      break;
+    case 5: //print a faculty's info from student id
+      cout << "Enter the Student ID: " << endl;
+      break;
+    case 6: //print all advisee's info for a faculty
+      cout << "Enter the Faculty ID: " << endl;
+      break;
+    case 7: //add student
+    case 8: //delete student
+      cout << "Enter the Student ID: " << endl;
+      break;
+    case 9: //add faculty
+    case 10: //delete faculty
+      cout << "Enter the Faculty ID: " << endl;
+      break;
+    case 11: //change student's advisor
+      cout << "Enter the Student ID: " << endl;
+      cout << "Enter the new Faculty ID: " << endl;
+      break;
+    case 12: //remove student from faculty's advisee  list
+      cout << "Enter the Student ID: " << endl;
+      cout << "Enter the new Faculty ID: " << endl;
+      break;
+    case 13: //Rollback
       break;
   }
 }
