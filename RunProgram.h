@@ -12,35 +12,37 @@ public:
 #endif
 
 
+template <class T>
 class TreeNode {
 public:
   TreeNode();
-  TreeNode(int key);
+  TreeNode(T &key);
   virtual ~TreeNode();
 
-  int key;
-  TreeNode *left;
-  TreeNode *right;
+  T key;
+  TreeNode<T> *left;
+  TreeNode<T> *right;
 };
 
 
+template  <class T>
 class BST{
 public:
   BST();
   virtual ~BST();
-  void insert(int value);
-  bool contains(int value);  //AKA search
-  bool deleteNode(int value);   //T or F if the node was deleted
+  void insert(T &value);
+  bool contains(T &value);  //AKA search
+  bool deleteNode(T &value);   //T or F if the node was deleted
 
-  TreeNode* getSuccessor(TreeNode* d);
+  TreeNode<T>* getSuccessor(TreeNode<T>* d);
   bool deleteRec();
 
-  TreeNode* getMin();
-  TreeNode* getMax();
+  TreeNode<T>* getMin();
+  TreeNode<T>* getMax();
   bool isEmpty();
   void printTree();
-  void recPrint(TreeNode *d);
+  void recPrint(TreeNode<T> *d);
 
 private:
-  TreeNode *root;
+  TreeNode<T> *root;
 };

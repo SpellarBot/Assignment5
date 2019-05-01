@@ -8,12 +8,9 @@ class Person{
 
 public:
   Person();
-  Person(int id, std::string name, std::string level);
+  Person(int id, string name, string level);
   int id;
-
-private:
-  
-  std::string name;
-  std::string level;
+  string name;
+  string level;
 };
 #endif

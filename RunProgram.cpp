@@ -3,11 +3,13 @@
 #include <iostream>
 
 void RunProgram::createTrees(){
-  BST studentBST;
+  BST<Student> masterStudent;
   Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
-  studentBST.insert(01);
-  if (studentBST.contains(01))
-    cout << "Jon Flees" << endl;
+  Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
+  masterStudent.insert(s1);
+  masterStudent.insert(s2);
+  if (masterStudent.contains(s2))
+    cout << s2.getID() << endl;
 }
 
 void RunProgram::printMenu(){
@@ -54,21 +56,23 @@ void RunProgram::menuSelection(int menuSel){
 
 
 
-
-TreeNode::TreeNode()
+template <class T>
+TreeNode<T>::TreeNode()
 {
   left = NULL;
   right =  NULL;
 }
 
-TreeNode::TreeNode(int k)
+template <class T>
+TreeNode<T>::TreeNode(T &k)
 {
   left = NULL;
   right = NULL;
   key = k;
 }
 
-TreeNode::~TreeNode()
+template <class T>
+TreeNode<T>::~TreeNode()
 {
   // lets do a little research
 }
@@ -80,24 +84,27 @@ TreeNode::~TreeNode()
 
 
 
-
-BST::BST() //default constructor
+template <class T>
+BST<T>::BST() //default constructor
 {
   root = NULL;  //empty tree
 }
 
-BST::~BST()
+template <class T>
+BST<T>::~BST()
 {
   //iterate and delete
   //lets put on our research hats
 }
 
-void BST::printTree()
+template <class T>
+void BST<T>::printTree()
 {
   recPrint(root);
 }
 
-void BST::recPrint(TreeNode *node)
+template <class T>
+void BST<T>::recPrint(TreeNode<T> *node)
 {
   if(node==NULL)
     return;
@@ -107,23 +114,25 @@ void BST::recPrint(TreeNode *node)
     recPrint(node->right);
 }
 
-bool BST::isEmpty()
+template <class T>
+bool BST<T>::isEmpty()
 {
   return (root == NULL);
 }
 
-void BST::insert(int value)
+template <class T>
+void BST<T>::insert(T &value)
 {
   // check if value exists, use contains(), if DNE then continue
-  TreeNode *node = new TreeNode(value);   //key is now set to  value
+  TreeNode<T> *node = new TreeNode<T>(value);   //key is now set to  value
   if(isEmpty())   //empty tree
   {
     root = node;
   }
   else    //not an empty tree, need to find insertion point
   {
-    TreeNode *current = root;
-    TreeNode *parent;   //empty node
+    TreeNode<T> *current = root;
+    TreeNode<T> *parent;   //empty node
 
     while(true)
     {
@@ -154,13 +163,14 @@ void BST::insert(int value)
   }
 }
 
-bool BST::contains(int value)
+template <class T>
+bool BST<T>::contains(T &value)
 {
   if(isEmpty())
     return false;
   else  //not empty tree
   {
-    TreeNode *current = root;
+    TreeNode<T> *current = root;
 
     while(current->key != value)
     {

@@ -12,6 +12,7 @@ public:
   void changeAdvisor(int facultyID);
 
   //some overload operator here
+  bool friend operator!= (const Student &s1, const Student &s2);
   bool friend operator== (const Student &s1, const Student &s2);
   bool friend operator> (const Student &s1, const Student &s2);
   bool friend operator>= (const Student &s1, const Student &s2);
