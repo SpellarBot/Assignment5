@@ -3,7 +3,7 @@
 Person::Person(){
   id = -1;
   name = "";
-  level = ""
+  level = "";
 }
 
 Person::Person(int id, string name, string level){

@@ -4,14 +4,14 @@
 using namespace std;
 
 Student::Student(){
-  super();
+  typedef Person super;
   major = "";
   gpa = -1;
   advisorID = -1;
 }
 
 Student::Student(int id, string name, string level, string major, double gpa, int advisor){
-  super(id, name, level);
+  typedef Person super;
   this->major = major;
   this->gpa = gpa;
   this->advisorID = advisorID;
@@ -21,28 +21,36 @@ void Student::changeAdvisor(int advisorID){
   this->advisorID = advisorID;
 }
 
-bool Student::operator== (const Student &s1, const Student &s2)
-{
-    return (s1.gpa == s2.gpa &&
-            s1.major == s2.major && s1.advisorID == s2.advisorID);
+int Student::getID(){
+  return id;
 }
 
-bool Student::operator> (const Student &s1, const Student &s2)
-{
-    return s1.gpa > s2.gpa;
+void Student::setID(int id){
+  this->id = id;
 }
 
-bool Student::operator>= (const Student &s1, const Student &s2)
+
+bool operator== (const Student &s1, const Student &s2)
 {
-    return s1.gpa >= s2.gpa;
+    return (s1.id == s2.id);
 }
 
-bool Student::operator< (const Student &s1, const Student &s2)
+bool operator> (const Student &s1, const Student &s2)
 {
-    return s1.gpa < s2.gpa;
+    return s1.id > s2.id;
 }
 
-bool Student::operator<= (const Student &s1, const Student &s2)
+bool operator>= (const Student &s1, const Student &s2)
 {
-    return s1.gpa <= s2.gpa;
+    return s1.id >= s2.id;
+}
+
+bool operator< (const Student &s1, const Student &s2)
+{
+    return s1.id < s2.id;
+}
+
+bool operator<= (const Student &s1, const Student &s2)
+{
+    return s1.id <= s2.id;
 }

@@ -1,4 +1,4 @@
-#include "string"
+#include <string>
 #include "Person.h"
 #ifndef STUDENT_H
 #define STUDENT_H
@@ -12,11 +12,14 @@ public:
   void changeAdvisor(int facultyID);
 
   //some overload operator here
-  bool operator== (const Student &s1, const Student &s2);
-  bool operator> (const Student &s1, const Student &s2);
-  bool operator>= (const Student &s1, const Student &s2);
-  bool operator< (const Student &s1, const Student &s2);
-  bool operator<= (const Student &s1, const Student &s2);
+  bool friend operator== (const Student &s1, const Student &s2);
+  bool friend operator> (const Student &s1, const Student &s2);
+  bool friend operator>= (const Student &s1, const Student &s2);
+  bool friend operator< (const Student &s1, const Student &s2);
+  bool friend operator<= (const Student &s1, const Student &s2);
+
+  int getID();
+  void setID(int id);
 
 private:
   string major;

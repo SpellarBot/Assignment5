@@ -1,6 +1,11 @@
-#include "string"
+#include <string>
 #include "DoublyLinkedList.h"
 #include "Person.h"
+#ifndef FACULTY_H
+#define FACULTY_H
+
+using namespace std;
+
 class Faculty : public Person{
 public:
   Faculty();
@@ -8,11 +13,12 @@ public:
   ~Faculty();
 
   //some operator overload
-  bool operator==(const Faculty &f1, const Faculty &f2);
-  bool operator!= (const Faculty &f1, const Faculty &f2);
+  bool friend operator==(const Faculty &f1, const Faculty &f2);
+  bool friend operator!= (const Faculty &f1, const Faculty &f2);
 
 
 private:
   string department;
   DubLinkList<int>* adviseeIDList = new DubLinkList<int>();
 };
+#endif
