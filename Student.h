@@ -21,7 +21,7 @@ public:
 
   int getID();
   void setID(int id);
-
+  string printInfo();
 
   string major;
   double gpa;

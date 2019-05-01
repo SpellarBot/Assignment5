@@ -17,6 +17,18 @@ Faculty::~Faculty(){
   delete adviseeIDList;
 }
 
+int Faculty::getID(){
+  return id;
+}
+
+void Faculty::setID(int id){
+  this->id = id;
+}
+
+string Faculty::printInfo(){
+  return "| ID: " + to_string(id) + " | Name: " + name + " | Level: " + level + " | Department: " + department + " |";
+}
+
 bool operator== (const Faculty &f1, const Faculty &f2)
 {
     return (f1.id == f2.id);

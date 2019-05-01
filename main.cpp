@@ -6,6 +6,7 @@ int main(){
 
   BST<Student> masterStudent;
   RunProgram rp;
+  rp.createTrees();
 
   while(true){      // loops back to MENU after completing action until user enters 14 for exit
     rp.printMenu();
@@ -13,7 +14,6 @@ int main(){
     if (choice1==14)
       return false;
     rp.menuSelection(choice1);
-    rp.createTrees();
   }
 
   return 0;

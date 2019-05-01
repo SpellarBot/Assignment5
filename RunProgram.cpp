@@ -5,17 +5,19 @@
 
 BST<Student> masterStudent;
 BST<Faculty> masterFaculty;
-Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
-Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
+//Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
+//Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
 Faculty f1(01, "Rene German", "Lecturer", "Computer Science");
+
+
 
 void RunProgram::createTrees(){
   //BST<Student> masterStudent;
-  //Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
-//  Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
-  //masterStudent.insert(s1);
-//  masterStudent.insert(s2);
-  if (masterStudent.contains(s1))
+  Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
+  Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
+  masterStudent.insert(s1);
+  masterStudent.insert(s2);
+  if (masterStudent.contains(01))
     cout << s1.getID() << endl;
 }
 
@@ -42,7 +44,10 @@ void RunProgram::menuSelection(int menuSel){
   Faculty newFac;
   switch(menuSel){
     case 1: //print all students
+      printAllStudents();
+      break;
     case 2: //print all faculty
+      printAllFaculty();
     case 3: //print a student's info
       cout << "Enter the Student ID: " << endl;
       break;
@@ -99,6 +104,22 @@ void RunProgram::menuSelection(int menuSel){
   }
 }
 
+void RunProgram::printAllStudents(){
+  if(masterStudent.isEmpty())
+    cout << "No Students exist at this time." << endl;
+  else{
+    masterStudent.printTree();
+  }
+}
+
+void RunProgram::printAllFaculty(){
+  if(masterFaculty.isEmpty())
+    cout << "No Faculty exist at this time." << endl;
+  else{
+    masterFaculty.printTree();
+  }
+}
+
 
 
 
@@ -119,6 +140,7 @@ TreeNode<T>::TreeNode(T &k)
   left = NULL;
   right = NULL;
   key = k;
+  data = k.getID();
 }
 
 template <class T>
@@ -156,12 +178,13 @@ void BST<T>::printTree()
 template <class T>
 void BST<T>::recPrint(TreeNode<T> *node)
 {
-  if(node==NULL)
+  if (node==NULL)
     return;
-  else
+  else{
     recPrint(node->left);
-    cout << node->key << endl;
+    cout << node->key.printInfo() << endl;
     recPrint(node->right);
+  }
 }
 
 template <class T>
@@ -188,7 +211,7 @@ void BST<T>::insert(T &value)
     {
       parent = current;
 
-      if (value < current->key)
+      if (node->data < current->data)
       {
         current = current->left;   //going left
 
@@ -214,7 +237,7 @@ void BST<T>::insert(T &value)
 }
 
 template <class T>
-bool BST<T>::contains(T &value)
+bool BST<T>::contains(int value)
 {
   if(isEmpty())
     return false;
@@ -222,9 +245,9 @@ bool BST<T>::contains(T &value)
   {
     TreeNode<T> *current = root;
 
-    while(current->key != value)
+    while(current->data != value)
     {
-      if(value < current->key)  //going left
+      if(value < current->data)  //going left
         current = current->left;
       else
         current = current->right;

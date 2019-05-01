@@ -9,6 +9,8 @@ public:
   void createTrees();
   void printMenu();
   void menuSelection(int menuSel);
+  void printAllStudents();
+  void printAllFaculty();
 };
 #endif
 
@@ -20,6 +22,7 @@ public:
   TreeNode(T &key);
   virtual ~TreeNode();
 
+  int data;
   T key;
   TreeNode<T> *left;
   TreeNode<T> *right;
@@ -32,7 +35,7 @@ public:
   BST();
   virtual ~BST();
   void insert(T &value);
-  bool contains(T &value);  //AKA search
+  bool contains(int value);  //AKA search
   bool deleteNode(T &value);   //T or F if the node was deleted
 
   TreeNode<T>* getSuccessor(TreeNode<T>* d);
