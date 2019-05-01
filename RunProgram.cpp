@@ -3,6 +3,9 @@
 #include "Faculty.h"
 #include <iostream>
 
+int studID = 2;
+int facID = 1;
+int searchID;
 BST<Student> masterStudent;
 BST<Faculty> masterFaculty;
 //Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
@@ -17,8 +20,7 @@ void RunProgram::createTrees(){
   Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
   masterStudent.insert(s1);
   masterStudent.insert(s2);
-  if (masterStudent.contains(01))
-    cout << s1.getID() << endl;
+  masterFaculty.insert(f1);
 }
 
 void RunProgram::printMenu(){
@@ -48,11 +50,16 @@ void RunProgram::menuSelection(int menuSel){
       break;
     case 2: //print all faculty
       printAllFaculty();
+      break;
     case 3: //print a student's info
       cout << "Enter the Student ID: " << endl;
+      cin >> searchID;
+      masterStudent.contains(searchID);
       break;
     case 4: //print a faculty's info
       cout << "Enter the Faculty ID: " << endl;
+      cin >> searchID;
+      masterFaculty.contains(searchID);
       break;
     case 5: //print a faculty's info from student id
       cout << "Enter the Student ID: " << endl;
@@ -61,6 +68,8 @@ void RunProgram::menuSelection(int menuSel){
       cout << "Enter the Faculty ID: " << endl;
       break;
     case 7: //add student
+      studID++;
+      newStudent.setID(studID);
       cout << "Enter Student Name: " << endl;
       cin.ignore();
       getline(cin,newStudent.name);
@@ -77,6 +86,8 @@ void RunProgram::menuSelection(int menuSel){
       cout << "Enter the Student ID: " << endl;
       break;
     case 9: //add faculty
+      facID++;
+      newFac.setID(facID);
       cout << "Enter Faculty Name: " << endl;
       cin.ignore();
       getline(cin,newFac.name);
@@ -119,7 +130,6 @@ void RunProgram::printAllFaculty(){
     masterFaculty.printTree();
   }
 }
-
 
 
 
@@ -254,6 +264,7 @@ bool BST<T>::contains(int value)
       if(current == NULL)   //we did not find it, DNE
         return false;
     }
+    cout << current->key.printInfo() << endl;
   }
   return true;
 }
