@@ -2,6 +2,14 @@
 #include "RunProgram.h"
 #include <iostream>
 
+void RunProgram::createTrees(){
+  BST studentBST;
+  Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
+  studentBST.insert(01);
+  if (studentBST.contains(01))
+    cout << "Jon Flees" << endl;
+}
+
 void RunProgram::printMenu(){
   cout << "~~~~~~~~~~~~~~~ MENU ~~~~~~~~~~~~~~~" << endl;
   cout << " 1) Print all students and their information (sorted by ascending id #)" << endl;
@@ -37,4 +45,132 @@ void RunProgram::menuSelection(int menuSel){
     case 13:
       break;
   }
+}
+
+
+
+
+
+
+
+
+
+TreeNode::TreeNode()
+{
+  left = NULL;
+  right =  NULL;
+}
+
+TreeNode::TreeNode(int k)
+{
+  left = NULL;
+  right = NULL;
+  key = k;
+}
+
+TreeNode::~TreeNode()
+{
+  // lets do a little research
+}
+
+
+
+
+
+
+
+
+
+BST::BST() //default constructor
+{
+  root = NULL;  //empty tree
+}
+
+BST::~BST()
+{
+  //iterate and delete
+  //lets put on our research hats
+}
+
+void BST::printTree()
+{
+  recPrint(root);
+}
+
+void BST::recPrint(TreeNode *node)
+{
+  if(node==NULL)
+    return;
+  else
+    recPrint(node->left);
+    cout << node->key << endl;
+    recPrint(node->right);
+}
+
+bool BST::isEmpty()
+{
+  return (root == NULL);
+}
+
+void BST::insert(int value)
+{
+  // check if value exists, use contains(), if DNE then continue
+  TreeNode *node = new TreeNode(value);   //key is now set to  value
+  if(isEmpty())   //empty tree
+  {
+    root = node;
+  }
+  else    //not an empty tree, need to find insertion point
+  {
+    TreeNode *current = root;
+    TreeNode *parent;   //empty node
+
+    while(true)
+    {
+      parent = current;
+
+      if (value < current->key)
+      {
+        current = current->left;   //going left
+
+        if(current==NULL)  //we found the insertion point for new node
+        {
+          parent->left = node;
+          break;
+        }
+        //else keep looping
+      }
+      else //going right
+      {
+        current = current->right;
+
+        if(current==NULL)
+        {
+          parent->right = node;
+          break;
+        }
+      }
+    }
+  }
+}
+
+bool BST::contains(int value)
+{
+  if(isEmpty())
+    return false;
+  else  //not empty tree
+  {
+    TreeNode *current = root;
+
+    while(current->key != value)
+    {
+      if(value < current->key)  //going left
+        current = current->left;
+      else
+        current = current->right;
+      if(current == NULL)   //we did not find it, DNE
+        return false;
+    }
+  }
+  return true;
 }
