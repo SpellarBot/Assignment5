@@ -114,7 +114,6 @@ void RunProgram::menuSelection(int menuSel){
     case 14:
       createStudentTableFile();
       createFacultyTableFile();
-      file_.close();
       break;
   }
 }
@@ -142,6 +141,7 @@ void RunProgram::createStudentTableFile(){
     cout << "Writing results to 'studentTable.out'..." << endl;
     file_.open("studentTable.out", std::ios_base::app);
     masterStudent.fileTree();
+    file_.close();
   }
 }
 
@@ -152,6 +152,7 @@ void RunProgram::createFacultyTableFile(){
     cout << "Writing results to 'facultyTable.out'..." << endl;
     file_.open("facultyTable.out", std::ios_base::app);
     masterFaculty.fileTree();
+    file_.close();
   }
 }
 
