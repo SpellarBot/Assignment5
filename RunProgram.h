@@ -11,6 +11,8 @@ public:
   void menuSelection(int menuSel);
   void printAllStudents();
   void printAllFaculty();
+  void createStudentTableFile();
+  void createFacultyTableFile();
 };
 #endif
 
@@ -46,6 +48,8 @@ public:
   bool isEmpty();
   void printTree();
   void recPrint(TreeNode<T> *d);
+  void fileTree();
+  void recFile(TreeNode<T> *d);
 
 private:
   TreeNode<T> *root;

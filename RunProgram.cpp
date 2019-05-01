@@ -2,20 +2,19 @@
 #include "RunProgram.h"
 #include "Faculty.h"
 #include <iostream>
+#include <fstream>
 
+ofstream file_;
 int studID = 2;
 int facID = 1;
 int searchID;
 BST<Student> masterStudent;
 BST<Faculty> masterFaculty;
-//Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
-//Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
 Faculty f1(01, "Rene German", "Lecturer", "Computer Science");
 
 
 
 void RunProgram::createTrees(){
-  //BST<Student> masterStudent;
   Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
   Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
   masterStudent.insert(s1);
@@ -112,6 +111,11 @@ void RunProgram::menuSelection(int menuSel){
       break;
     case 13: //Rollback
       break;
+    case 14:
+      createStudentTableFile();
+      createFacultyTableFile();
+      file_.close();
+      break;
   }
 }
 
@@ -131,7 +135,25 @@ void RunProgram::printAllFaculty(){
   }
 }
 
+void RunProgram::createStudentTableFile(){
+  if(masterStudent.isEmpty())
+    cout << "No Students exist at this time." << endl;
+  else{
+    cout << "Writing results to 'studentTable.out'..." << endl;
+    file_.open("studentTable.out", std::ios_base::app);
+    masterStudent.fileTree();
+  }
+}
 
+void RunProgram::createFacultyTableFile(){
+  if(masterFaculty.isEmpty())
+    cout << "No Students exist at this time." << endl;
+  else{
+    cout << "Writing results to 'facultyTable.out'..." << endl;
+    file_.open("facultyTable.out", std::ios_base::app);
+    masterFaculty.fileTree();
+  }
+}
 
 
 
@@ -267,4 +289,24 @@ bool BST<T>::contains(int value)
     cout << current->key.printInfo() << endl;
   }
   return true;
+}
+
+
+
+template <class T>
+void BST<T>::fileTree()
+{
+  recFile(root);
+}
+
+template <class T>
+void BST<T>::recFile(TreeNode<T> *node)
+{
+  if (node==NULL)
+    return;
+  else{
+    recFile(node->left);
+    file_ << node->key.printInfo() << endl;
+    recFile(node->right);
+  }
 }
