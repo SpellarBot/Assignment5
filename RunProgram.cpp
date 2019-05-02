@@ -97,6 +97,33 @@ void RunProgram::menuSelection(int menuSel){
     case 8: //delete student
       cout << "Enter the Student ID: " << endl;
       cin >> sID;
+      saveCommand();
+      cout << "Enter the Student ID: " << endl;
+      if(masterStudent.isEmpty())
+      {
+        cout << "No students currently exist" << endl;
+      }
+      while(true)
+      {
+
+        cout << "Enter student id: ";
+        cin >> searchID;
+
+        if(masterStudent.contains(id))
+        {
+          if(masterStudent.printTree(id)->(masterFaculty.printTree()) != -1)
+          {
+            masterFaculty.printTree(student.printTree(id)->(masterFaculty.printTree())())->remove(masterFaculty(id));
+          }
+          remove(masterFaculty(id));
+          break;
+        }
+        else
+        {
+          cout << "The student ID you entered was not found. Please enter a correct ID number" << endl;
+        }
+
+      }
       break;
     case 9: //add faculty
       facID++;
@@ -188,7 +215,42 @@ void RunProgram::changeAdvisorID(int stud, int fac){
   masterStudent.contains(stud);
 }
 
+void RunProgram::deleteStudent() {
 
+  string userInput;
+  int id = 0;
+
+  if(student.isEmpty()) {
+    cout << "No students currently exist" << endl;
+  }
+
+  else {
+    cout << "Students: " << endl;
+    treeStudent(student.getRoot());
+
+    while(true) {
+      input = "";
+      cout << "Enter student id: ";
+      cin >> userInput;
+
+
+      if(student.contains(id))
+      {
+        if(student.find(id)->getAdvisor() != -1)
+        {
+          faculty.find(student.find(id)->getAdvisor())->removeAdvisee(id);
+        }
+        student.erase(id);
+        break;
+      }
+      else
+      {
+        cout << "The student ID you entered was not found. Please enter a correct ID number" << endl;
+      }
+
+    }
+  }
+}
 
 
 void RunProgram::saveCommand()

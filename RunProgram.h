@@ -18,6 +18,7 @@ public:
   void getStudentList(int id);
   void searchAdvisorID(int id);
   void changeAdvisorID(int stud, int fac);
+  void deleteStudent();
   void saveCommand();
   void Rollback();
 };
