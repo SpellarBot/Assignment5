@@ -156,7 +156,42 @@ void RunProgram::createFacultyTableFile(){
   }
 }
 
+void RunProgram::deleteStudent() {
 
+  string userInput;
+  int id = 0;
+
+  if(student.isEmpty()) {
+    cout << "No students currently exist" << endl;
+  }
+
+  else {
+    cout << "Students: " << endl;
+    treeStudent(student.getRoot());
+
+    while(true) {
+      input = "";
+      cout << "Enter student id: ";
+      cin >> userInput;
+
+
+      if(student.contains(id))
+      {
+        if(student.find(id)->getAdvisor() != -1)
+        {
+          faculty.find(student.find(id)->getAdvisor())->removeAdvisee(id);
+        }
+        student.erase(id);
+        break;
+      }
+      else
+      {
+        cout << "The student ID you entered was not found. Please enter a correct ID number" << endl;
+      }
+
+    }
+  }
+}
 
 
 
