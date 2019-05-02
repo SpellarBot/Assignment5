@@ -20,7 +20,11 @@ Student::Student(int id, string name, string level, string major, double gpa, in
   this->advisorID = advisorID;
 }
 
-void Student::changeAdvisor(int advisorID){
+int Student::getAdvisorID(){
+  return advisorID;
+}
+
+void Student::setAdvisorID(int advisorID){
   this->advisorID = advisorID;
 }
 

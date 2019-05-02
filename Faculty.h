@@ -9,7 +9,7 @@ using namespace std;
 class Faculty : public Person{
 public:
   Faculty();
-  Faculty(int id, string name, string level, string department);
+  Faculty(int id, string name, string level, string department, int studList[30]);
   ~Faculty();
 
   int getID();
@@ -25,6 +25,7 @@ public:
   bool friend operator<= (const Faculty &f1, const Faculty &f2);
 
   string department;
+  int studList[30];
 
 private:
   DubLinkList<int>* adviseeIDList = new DubLinkList<int>();

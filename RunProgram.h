@@ -13,6 +13,10 @@ public:
   void printAllFaculty();
   void createStudentTableFile();
   void createFacultyTableFile();
+  void deleteStudent(int id);
+  void getStudentList(int id);
+  void searchAdvisorID(int id);
+  void changeAdvisorID(int stud, int fac);
 };
 #endif
 
@@ -50,6 +54,9 @@ public:
   void recPrint(TreeNode<T> *d);
   void fileTree();
   void recFile(TreeNode<T> *d);
+  T find(int id);
+  int findAdID(int id);
+  void changeAdID(int stud, int fac);
 
 private:
   TreeNode<T> *root;

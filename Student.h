@@ -9,8 +9,9 @@ class Student : public Person{
 public:
   Student();
   Student(int id, string name, string level, string major, double gpa, int advisorID);
-  void changeAdvisor(int facultyID);
-  
+  int getAdvisorID();
+  void setAdvisorID(int advisorID);
+
 
   //some overload operator here
   bool friend operator!= (const Student &s1, const Student &s2);

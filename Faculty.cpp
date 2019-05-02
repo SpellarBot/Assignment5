@@ -5,12 +5,13 @@ Faculty::Faculty(){
   department = "";
 }
 
-Faculty::Faculty(int id, string name, string level, string department){
+Faculty::Faculty(int id, string name, string level, string department, int studList[30]){
   typedef Person super;
   this->id = id;
   this->name = name;
   this->level = level;
   this->department = department;
+  this->studList[30] = studList[30];
 }
 
 Faculty::~Faculty(){

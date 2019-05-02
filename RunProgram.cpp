@@ -7,16 +7,19 @@
 ofstream file_;
 int studID = 2;
 int facID = 1;
-int searchID;
+int searchID, searchID2;
+int sID;
+int studList[30];
+int counter1=0;
 BST<Student> masterStudent;
 BST<Faculty> masterFaculty;
-Faculty f1(01, "Rene German", "Lecturer", "Computer Science");
+Faculty f1(01, "Rene German", "Lecturer", "Computer Science", studList);
 
 
 
 void RunProgram::createTrees(){
   Student s1(01, "Jon Flees", "Sophomore", "Data Analytics", 3.15, 03);
-  Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 04);
+  Student s2(02, "Cadre Carrigan", "Sophomore", "Data Analytics", 3.57, 01);
   masterStudent.insert(s1);
   masterStudent.insert(s2);
   masterFaculty.insert(f1);
@@ -62,9 +65,12 @@ void RunProgram::menuSelection(int menuSel){
       break;
     case 5: //print a faculty's info from student id
       cout << "Enter the Student ID: " << endl;
+      cin >> searchID;
+      searchAdvisorID(searchID);
       break;
     case 6: //print all advisee's info for a faculty
       cout << "Enter the Faculty ID: " << endl;
+      cin >> searchID;
       break;
     case 7: //add student
       studID++;
@@ -83,6 +89,7 @@ void RunProgram::menuSelection(int menuSel){
       break;
     case 8: //delete student
       cout << "Enter the Student ID: " << endl;
+      cin >> sID;
       break;
     case 9: //add faculty
       facID++;
@@ -103,7 +110,10 @@ void RunProgram::menuSelection(int menuSel){
       break;
     case 11: //change student's advisor
       cout << "Enter the Student ID: " << endl;
+      cin >> searchID;
       cout << "Enter the new Faculty ID: " << endl;
+      cin >> searchID2;
+      changeAdvisorID(searchID, searchID2);
       break;
     case 12: //remove student from faculty's advisee  list
       cout << "Enter the Student ID: " << endl;
@@ -156,79 +166,20 @@ void RunProgram::createFacultyTableFile(){
   }
 }
 
-void RunProgram::advisorStudentID()
-{
-  string userInput;
-  int id;
+/*void RunProgram::getStudentList(int id){
+    masterStudent.searchAdvisorID(id);
+}*/
 
-  if(masterStudent.isEmpty())
-  {
-    cout << "Student does not exist" << endl;
-  }
-  else
-  {
-    cout << "Students: " << endl;
-    printTree(masterStudent.getRoot());
-
-    while(true)
-    {
-      cout << "Enter Student ID: ";
-      cin >> userInput;
-
-      if(masterStudent.contains(id))
-      {
-        Student *student = masterStudent.find(id);
-
-        masterFaculty.find(student->getFaculty())->printAllFaculty();
-        break;
-      }
-      else
-      {
-          cout << "The student ID entered was not found. Please enter a valid ID." << endl;
-      }
-    }
-
-  }
+void RunProgram::searchAdvisorID(int id){
+  int gg = masterStudent.findAdID(id);
+  masterFaculty.contains(gg);
 }
 
 
-void RunProgram::deleteStudent() {
-
-  string userInput;
-  int id = 0;
-
-  if(student.isEmpty()) {
-    cout << "No students currently exist" << endl;
-  }
-
-  else {
-    cout << "Students: " << endl;
-    treeStudent(student.getRoot());
-
-    while(true) {
-      input = "";
-      cout << "Enter student id: ";
-      cin >> userInput;
-
-
-      if(student.contains(id))
-      {
-        if(student.find(id)->getAdvisor() != -1)
-        {
-          faculty.find(student.find(id)->getAdvisor())->removeAdvisee(id);
-        }
-        student.erase(id);
-        break;
-      }
-      else
-      {
-        cout << "The student ID you entered was not found. Please enter a correct ID number" << endl;
-      }
-
-    }
-  }
+void RunProgram::changeAdvisorID(int stud, int fac){
+  masterStudent.changeAdID(stud, fac);
+  masterStudent.contains(stud);
 }
-
 
 
 template <class T>
@@ -380,5 +331,51 @@ void BST<T>::recFile(TreeNode<T> *node)
     recFile(node->left);
     file_ << node->key.printInfo() << endl;
     recFile(node->right);
+  }
+}
+
+
+template <class T>
+void BST<T>::changeAdID(int value, int fac)
+{
+  if(isEmpty())
+    cout << "Tree is empty." << endl;
+  else  //not empty tree
+  {
+    TreeNode<T> *current = root;
+
+    while(current->data != value)
+    {
+      if(value < current->data)  //going left
+        current = current->left;
+      else
+        current = current->right;
+      if(current == NULL)   //we did not find it, DNE
+        cout << "Does not exist." << endl;
+    }
+    current->key.setAdvisorID(fac);
+  }
+}
+
+
+template <class T>
+int BST<T>::findAdID(int value)
+{
+  if(isEmpty())
+    cout << "Tree is empty." << endl;
+  else  //not empty tree
+  {
+    TreeNode<T> *current = root;
+
+    while(current->data != value)
+    {
+      if(value < current->data)  //going left
+        current = current->left;
+      else
+        current = current->right;
+      if(current == NULL)   //we did not find it, DNE
+        return false;
+    }
+    return current->key.advisorID;
   }
 }
