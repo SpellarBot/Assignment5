@@ -1,6 +1,7 @@
 #include "Student.h"
 #include "Faculty.h"
 #include "DoublyLinkedList.h"
+#include "GenStack.h"
 #ifndef RUNPROGRAM_H
 #define RUNPROGRAM_H
 
@@ -17,6 +18,8 @@ public:
   void getStudentList(int id);
   void searchAdvisorID(int id);
   void changeAdvisorID(int stud, int fac);
+  void saveCommand();
+  void Rollback();
 };
 #endif
 

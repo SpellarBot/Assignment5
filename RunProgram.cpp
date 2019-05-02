@@ -1,6 +1,7 @@
 #include "Student.h"
 #include "RunProgram.h"
 #include "Faculty.h"
+#include "GenStack.h"
 #include <iostream>
 #include <fstream>
 
@@ -14,6 +15,11 @@ int counter1=0;
 BST<Student> masterStudent;
 BST<Faculty> masterFaculty;
 Faculty f1(01, "Rene German", "Lecturer", "Computer Science", studList);
+
+GenStack<Student> studentStack;
+GenStack<Faculty> facultyStack;
+GenStack<Student> extraStudentStack;
+GenStack<Faculty> extraFacultyStack;
 
 
 
@@ -86,6 +92,7 @@ void RunProgram::menuSelection(int menuSel){
       cout << "Enter Student GPA: " << endl;
       cin >> newStudent.gpa;
       masterStudent.insert(newStudent);
+      masterStudent.changeAdID(studID, 1);
       break;
     case 8: //delete student
       cout << "Enter the Student ID: " << endl;
@@ -98,10 +105,10 @@ void RunProgram::menuSelection(int menuSel){
       cin.ignore();
       getline(cin,newFac.name);
       cout << "Enter Faculty Level: " << endl;
-      cin.ignore();
+      //cin.ignore();
       getline(cin,newFac.level);
       cout << "Enter Faculty Department: " << endl;
-      cin.ignore();
+      //cin.ignore();
       getline(cin,newFac.department);
       masterFaculty.insert(newFac);
       break;
@@ -179,6 +186,59 @@ void RunProgram::searchAdvisorID(int id){
 void RunProgram::changeAdvisorID(int stud, int fac){
   masterStudent.changeAdID(stud, fac);
   masterStudent.contains(stud);
+}
+
+
+
+
+void RunProgram::saveCommand()
+{
+  if(studentStack.size() >= 5)
+  {
+    for(int i = 0; i < 5; i++)
+    {
+      extraStudentStack.push(studentStack.pop());
+    }
+    extraStudentStack.pop();
+    while(extraStudentStack.peek() != extraStudentStack.empty())
+    {
+      studentStack.push(extraStudentStack.pop());
+    }
+    studentStack.push(masterStudent);
+  }
+  else if(facultyStack.size() >= 5)
+  {
+    for(int i = 0; i < 5; i++)
+    {
+      extraFacultyStack.push(facultyStack.pop());
+    }
+    extraFacultyStack.pop();
+    while(extraFacultyStack.peek() != extraFacultyStack.empty())
+    {
+      facultyStack.push(extraFacultyStack.pop());
+    }
+    facultyStack.push(masterFaculty);
+  }
+
+  else
+  {
+    studentStack.push(masterStudent);
+    facultyStack.push(masterFaculty);
+  }
+}
+
+
+void RunProgram::Rollback()
+{
+  try
+  {
+    masterStudent = studentStack.pop();
+    masterFaculty = facultyStack.pop();
+  }
+  catch(exception e)
+  {
+    cout << "You can only rollback your last 5 commands. Rollback Failed." << endl;
+  }
 }
 
 
