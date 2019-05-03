@@ -18,6 +18,7 @@ public:
   void getStudentList(int id);
   void searchAdvisorID(int id);
   void changeAdvisorID(int stud, int fac);
+  void printAdvisees(int id);
   void deleteStudent();
   void saveCommand();
   void Rollback();
@@ -60,8 +61,10 @@ public:
   void recFile(TreeNode<T> *d);
   T find(int id);
   int findAdID(int id);
+  int findAdvisees(int id);
   void changeAdID(int stud, int fac);
   void addToAdvisor(int value, int fac);
+  void removeFromAdvisor(int value, int fac);
   bool deleteThis(int value);
   TreeNode<T>* getNext(TreeNode<T> *d);
 

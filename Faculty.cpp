@@ -5,13 +5,13 @@ Faculty::Faculty(){
   department = "";
 }
 
-Faculty::Faculty(int id, string name, string level, string department, int studList[30]){
+Faculty::Faculty(int id, string name, string level, string department, int studList[20]){
   typedef Person super;
   this->id = id;
   this->name = name;
   this->level = level;
   this->department = department;
-  this->studList[30] = studList[30];
+  this->studList[20] = studList[20];
 }
 
 Faculty::~Faculty(){
@@ -27,7 +27,7 @@ void Faculty::setID(int id){
 }
 
 string Faculty::printInfo(){
-  return "| ID: " + to_string(id) + " | Name: " + name + " | Level: " + level + " | Department: " + department + " | Advisees:" + stringAd() + " |" ;
+  return "| ID: " + to_string(id) + " | Name: " + name + " | Level: " + level + " | Department: " + department + " | Advisees: " + stringAd() + " |" ;
 }
 
 int Faculty::listOfAdvisees(){
@@ -43,19 +43,6 @@ string Faculty::stringAd(){
 }
 
 void Faculty::addAdvisee(int id){
-  bool x = true;
-  while(x == true){
-    for (int i : studList){
-      if(studList[i]==0){
-        studList[i] = id;
-        break;
-      }
-    }
-    if(x==true){
-      cout << "Faculty Member is at capacity for Advisees." << endl;
-      break;
-    }
-  }
   studList[id] = id;
 }
 

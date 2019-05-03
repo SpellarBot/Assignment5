@@ -10,7 +10,7 @@ int studID = 2;
 int facID = 1;
 int searchID, searchID2;
 int sID;
-int studList[30];
+int studList[20];
 int counter1=0;
 BST<Student> masterStudent;
 BST<Faculty> masterFaculty;
@@ -77,6 +77,7 @@ void RunProgram::menuSelection(int menuSel){
     case 6: //print all advisee's info for a faculty
       cout << "Enter the Faculty ID: " << endl;
       cin >> searchID;
+      printAdvisees(searchID);
       break;
     case 7: //add student
       studID++;
@@ -128,7 +129,10 @@ void RunProgram::menuSelection(int menuSel){
       break;
     case 12: //remove student from faculty's advisee  list
       cout << "Enter the Student ID: " << endl;
-      cout << "Enter the new Faculty ID: " << endl;
+      cin >> searchID;
+      cout << "Enter the Faculty ID: " << endl;
+      cin >> searchID2;
+      masterFaculty.removeFromAdvisor(searchID, searchID2);
       break;
     case 13: //Rollback
       break;
@@ -185,6 +189,14 @@ void RunProgram::searchAdvisorID(int id){
 void RunProgram::changeAdvisorID(int stud, int fac){
   masterStudent.changeAdID(stud, fac);
   masterStudent.contains(stud);
+}
+
+void RunProgram::printAdvisees(int id){
+    int cc = masterFaculty.findAdvisees(id);
+    for(int i=0; i< 20; i++){
+      if (cc!=0)
+        masterStudent.contains(i);
+    }
 }
 
 
@@ -440,6 +452,28 @@ void BST<T>::addToAdvisor(int value, int fac)
 
 
 template <class T>
+void BST<T>::removeFromAdvisor(int value, int fac)
+{
+  if(isEmpty())
+    cout << "Tree is empty." << endl;
+  else  //not empty tree
+  {
+    TreeNode<T> *current = root;
+
+    while(current->data != fac)
+    {
+      if(fac < current->data)  //going left
+        current = current->left;
+      else
+        current = current->right;
+      if(current == NULL)   //we did not find it, DNE
+        cout << "Does not exist." << endl;
+    }
+    current->key.deleteAdvisee(value);
+  }
+}
+
+template <class T>
 int BST<T>::findAdID(int value)
 {
   if(isEmpty())
@@ -458,6 +492,28 @@ int BST<T>::findAdID(int value)
         return false;
     }
     return current->key.advisorID;
+  }
+}
+
+template <class T>
+int BST<T>::findAdvisees(int value)
+{
+  if(isEmpty())
+    cout << "Tree is empty." << endl;
+  else  //not empty tree
+  {
+    TreeNode<T> *current = root;
+
+    while(current->data != value)
+    {
+      if(value < current->data)  //going left
+        current = current->left;
+      else
+        current = current->right;
+      if(current == NULL)   //we did not find it, DNE
+        return false;
+    }
+    return current->key.listOfAdvisees();
   }
 }
 
