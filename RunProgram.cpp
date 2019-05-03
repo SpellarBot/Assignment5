@@ -95,35 +95,9 @@ void RunProgram::menuSelection(int menuSel){
       masterStudent.changeAdID(studID, 1);
       break;
     case 8: //delete student
-      cout << "Enter the Student ID: " << endl;
-      cin >> sID;
-      saveCommand();
-      cout << "Enter the Student ID: " << endl;
-      if(masterStudent.isEmpty())
-      {
-        cout << "No students currently exist" << endl;
-      }
-      while(true)
-      {
-
-        cout << "Enter student id: ";
-        cin >> searchID;
-
-        if(masterStudent.contains(id))
-        {
-          if(masterStudent.printTree(id)->(masterFaculty.printTree()) != -1)
-          {
-            masterFaculty.printTree(student.printTree(id)->(masterFaculty.printTree())())->remove(masterFaculty(id));
-          }
-          remove(masterFaculty(id));
-          break;
-        }
-        else
-        {
-          cout << "The student ID you entered was not found. Please enter a correct ID number" << endl;
-        }
-
-      }
+      cout << "Enter Student ID:  " << endl;
+      cin  >> searchID;
+      masterStudent.deleteThis(searchID);
       break;
     case 9: //add faculty
       facID++;
@@ -141,6 +115,8 @@ void RunProgram::menuSelection(int menuSel){
       break;
     case 10: //delete faculty
       cout << "Enter the Faculty ID: " << endl;
+      cin  >> searchID;
+      masterFaculty.deleteThis(searchID);
       break;
     case 11: //change student's advisor
       cout << "Enter the Student ID: " << endl;
@@ -215,44 +191,8 @@ void RunProgram::changeAdvisorID(int stud, int fac){
   masterStudent.contains(stud);
 }
 
-void RunProgram::deleteStudent() {
 
-  string userInput;
-  int id = 0;
-
-  if(student.isEmpty()) {
-    cout << "No students currently exist" << endl;
-  }
-
-  else {
-    cout << "Students: " << endl;
-    treeStudent(student.getRoot());
-
-    while(true) {
-      input = "";
-      cout << "Enter student id: ";
-      cin >> userInput;
-
-
-      if(student.contains(id))
-      {
-        if(student.find(id)->getAdvisor() != -1)
-        {
-          faculty.find(student.find(id)->getAdvisor())->removeAdvisee(id);
-        }
-        student.erase(id);
-        break;
-      }
-      else
-      {
-        cout << "The student ID you entered was not found. Please enter a correct ID number" << endl;
-      }
-
-    }
-  }
-}
-
-
+/*
 void RunProgram::saveCommand()
 {
   if(studentStack.size() >= 5)
@@ -262,11 +202,11 @@ void RunProgram::saveCommand()
       extraStudentStack.push(studentStack.pop());
     }
     extraStudentStack.pop();
-    while(extraStudentStack.peek() != extraStudentStack.empty())
+    while(!extraStudentStack.empty())
     {
       studentStack.push(extraStudentStack.pop());
     }
-    studentStack.push(masterStudent);
+    studentStack.push(node : masterStudent);
   }
   else if(facultyStack.size() >= 5)
   {
@@ -275,11 +215,11 @@ void RunProgram::saveCommand()
       extraFacultyStack.push(facultyStack.pop());
     }
     extraFacultyStack.pop();
-    while(extraFacultyStack.peek() != extraFacultyStack.empty())
+    while(!extraFacultyStack.empty())
     {
       facultyStack.push(extraFacultyStack.pop());
     }
-    facultyStack.push(masterFaculty);
+    facultyStack.push(TreeNode<T> *node : masterFaculty);
   }
 
   else
@@ -294,8 +234,9 @@ void RunProgram::Rollback()
 {
   try
   {
-    masterStudent = studentStack.pop();
-    masterFaculty = facultyStack.pop();
+  //  masterStudent = studentStack.pop();
+  //  masterStudent.pop();
+  //  masterFaculty = facultyStack.pop();
   }
   catch(exception e)
   {
@@ -303,6 +244,7 @@ void RunProgram::Rollback()
   }
 }
 
+*/
 
 template <class T>
 TreeNode<T>::TreeNode()
@@ -500,4 +442,146 @@ int BST<T>::findAdID(int value)
     }
     return current->key.advisorID;
   }
+}
+
+
+template <class T>
+bool BST<T>::deleteThis(int value)
+{
+  bool check = false;
+
+  if(root == NULL)
+  {
+    return false;
+  }
+
+  TreeNode<T> *current = root;
+  TreeNode<T> *parent = root;
+
+
+  while(current->data != value)
+  {
+    parent = current;
+
+    if(value < current->data)
+    {
+      check = true;
+      current = current->left;
+    }
+    else
+    {
+      check = false;
+      current = current->right;
+    }
+
+    if(current == NULL)
+    {
+      return false;
+    }
+  }
+
+
+  //delete with no Child
+
+  if(current->left == NULL && current->right == NULL)
+  {
+    if(current == root)
+    {
+      root = NULL;
+    }
+    else if(check)
+    {
+      parent->left = NULL;
+    }
+    else
+    {
+      parent->right = NULL;
+    }
+  }
+
+  //delete with left Child
+
+  else if(current->right == NULL)
+  {
+    if(current == root)
+    {
+      root = current->left;
+    }
+    else if(check)
+    {
+      parent->left = current->left;
+    }
+    else
+    {
+      parent->right = current->right;
+    }
+  }
+
+  //delete with right Child
+
+  else if(current->left == NULL)
+  {
+    if(current == root)
+    {
+      root = current->right;
+    }
+    else if(check)
+    {
+      parent->left = current->right;
+    }
+    else
+    {
+      parent->right = current->right;
+    }
+  }
+
+  //delete with two children
+
+  else
+  {
+    TreeNode<T> *next = getNext(current);
+
+    if(current == root)
+    {
+        root = next;
+    }
+    else if(check)
+    {
+      parent->left = next;
+    }
+    else
+    {
+      parent->right = next;
+    }
+    next->left = current->left;
+  }
+//  --size;
+  return true;
+}
+
+template <class T>
+TreeNode<T>* BST<T>::getNext(TreeNode<T> *value)
+{
+  TreeNode<T> *temp = value;
+  TreeNode<T> *next = value;
+  TreeNode<T> *current = value->right;
+
+  while(current != NULL)
+  {
+
+    temp = next;
+    next = current;
+    current = current->left;
+
+  }
+
+  if(next != value->right)
+  {
+    if(next->right > temp->left)
+    {
+      temp->left = next->right;
+      next->right = value->right;
+    }
+  }
+  return next;
 }

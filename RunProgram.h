@@ -61,6 +61,8 @@ public:
   T find(int id);
   int findAdID(int id);
   void changeAdID(int stud, int fac);
+  bool deleteThis(int value);
+  TreeNode<T>* getNext(TreeNode<T> *d);
 
 private:
   TreeNode<T> *root;
