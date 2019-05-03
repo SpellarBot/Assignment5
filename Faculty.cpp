@@ -27,7 +27,40 @@ void Faculty::setID(int id){
 }
 
 string Faculty::printInfo(){
-  return "| ID: " + to_string(id) + " | Name: " + name + " | Level: " + level + " | Department: " + department + " |";
+  return "| ID: " + to_string(id) + " | Name: " + name + " | Level: " + level + " | Department: " + department + " | Advisees:" + stringAd() + " |" ;
+}
+
+int Faculty::listOfAdvisees(){
+  for (int i : studList)
+    return studList[i];
+}
+
+string Faculty::stringAd(){
+  string s = "";
+  for (int i  : studList)
+    s+= to_string(studList[i]) + ", ";
+  return s;
+}
+
+void Faculty::addAdvisee(int id){
+  bool x = true;
+  while(x == true){
+    for (int i : studList){
+      if(studList[i]==0){
+        studList[i] = id;
+        break;
+      }
+    }
+    if(x==true){
+      cout << "Faculty Member is at capacity for Advisees." << endl;
+      break;
+    }
+  }
+  studList[id] = id;
+}
+
+void Faculty::deleteAdvisee(int id){
+  studList[id] = 0;
 }
 
 bool operator== (const Faculty &f1, const Faculty &f2)

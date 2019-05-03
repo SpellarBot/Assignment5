@@ -15,6 +15,10 @@ public:
   int getID();
   void setID(int id);
   string printInfo();
+  int listOfAdvisees();
+  string stringAd();
+  void addAdvisee(int id);
+  void deleteAdvisee(int id);
 
   //some operator overload
   bool friend operator==(const Faculty &f1, const Faculty &f2);

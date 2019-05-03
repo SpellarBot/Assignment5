@@ -124,6 +124,7 @@ void RunProgram::menuSelection(int menuSel){
       cout << "Enter the new Faculty ID: " << endl;
       cin >> searchID2;
       changeAdvisorID(searchID, searchID2);
+      masterFaculty.addToAdvisor(searchID, searchID2);
       break;
     case 12: //remove student from faculty's advisee  list
       cout << "Enter the Student ID: " << endl;
@@ -176,15 +177,10 @@ void RunProgram::createFacultyTableFile(){
   }
 }
 
-/*void RunProgram::getStudentList(int id){
-    masterStudent.searchAdvisorID(id);
-}*/
-
 void RunProgram::searchAdvisorID(int id){
   int gg = masterStudent.findAdID(id);
   masterFaculty.contains(gg);
 }
-
 
 void RunProgram::changeAdvisorID(int stud, int fac){
   masterStudent.changeAdID(stud, fac);
@@ -195,7 +191,7 @@ void RunProgram::changeAdvisorID(int stud, int fac){
 /*
 void RunProgram::saveCommand()
 {
-  if(studentStack.size() >= 5)
+  if(studentStack.sizeOf() >= 5)
   {
     for(int i = 0; i < 5; i++)
     {
@@ -206,9 +202,9 @@ void RunProgram::saveCommand()
     {
       studentStack.push(extraStudentStack.pop());
     }
-    studentStack.push(node : masterStudent);
+    //studentStack.push(node : masterStudent);
   }
-  else if(facultyStack.size() >= 5)
+  else if(facultyStack.sizeOf() >= 5)
   {
     for(int i = 0; i < 5; i++)
     {
@@ -219,13 +215,13 @@ void RunProgram::saveCommand()
     {
       facultyStack.push(extraFacultyStack.pop());
     }
-    facultyStack.push(TreeNode<T> *node : masterFaculty);
+    //facultyStack.push(TreeNode<T> *node : masterFaculty);
   }
 
   else
   {
-    studentStack.push(masterStudent);
-    facultyStack.push(masterFaculty);
+    //studentStack.push(masterStudent);
+    //facultyStack.push(masterFaculty);
   }
 }
 
@@ -243,7 +239,6 @@ void RunProgram::Rollback()
     cout << "You can only rollback your last 5 commands. Rollback Failed." << endl;
   }
 }
-
 */
 
 template <class T>
@@ -418,6 +413,28 @@ void BST<T>::changeAdID(int value, int fac)
         cout << "Does not exist." << endl;
     }
     current->key.setAdvisorID(fac);
+  }
+}
+
+template <class T>
+void BST<T>::addToAdvisor(int value, int fac)
+{
+  if(isEmpty())
+    cout << "Tree is empty." << endl;
+  else  //not empty tree
+  {
+    TreeNode<T> *current = root;
+
+    while(current->data != fac)
+    {
+      if(fac < current->data)  //going left
+        current = current->left;
+      else
+        current = current->right;
+      if(current == NULL)   //we did not find it, DNE
+        cout << "Does not exist." << endl;
+    }
+    current->key.addAdvisee(value);
   }
 }
 
