@@ -20,9 +20,9 @@ DoublyLinkedList.h    includes Doubly Linked List
 main.cpp      main
 
 
-The program provides the user a menu to choose from options to add, delete, view, or change objects in two seperate BST's,
+The program provides the user a menu to choose from options to add, delete, view, or change objects in two separate BST's,
 one for students and one for faculty. The program loops back to the menu until user chooses to exit then it outputs the
-results to a seperate files for each BST.
+results to a separate files for each BST.
 
 For running and compiling:
 g++ Person.cpp Faculty.cpp Student.cpp RunProgram.cpp main.cpp
